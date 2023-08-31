@@ -42,7 +42,7 @@ router.post('/',asyncHandler( async (req, res, next) => {
       }
   }));
 
-// Update a user
+// Update any user
 router.put('/:id', async (req, res) => {
     if (req.body._id) delete req.body._id;
     const result = await User.updateOne({
