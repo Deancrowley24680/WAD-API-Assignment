@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -12,10 +12,11 @@ import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { blue } from "@mui/material/colors";
+import { AuthContext } from '../../contexts/authContext';
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-const SiteHeader = ({ history }) => {
+const SiteHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -23,7 +24,8 @@ const SiteHeader = ({ history }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   
   const navigate = useNavigate();
-
+  const context = useContext(AuthContext);  
+  
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favourites", path: "/movies/favourites" },
@@ -31,7 +33,6 @@ const SiteHeader = ({ history }) => {
     { label: "Popular", path: "/movies/popular" },
     { label: "Actors", path: "/person/popular-actors" },
     { label: "TV Series", path: "/tv/popular" },
-    { label: "Log In", path: "/login" },
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -52,7 +53,18 @@ const SiteHeader = ({ history }) => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             All you ever wanted to know about Movies!
           </Typography>
-            {isMobile ? (
+          {context.isAuthenticated ? (
+            <p>
+              Welcome {context.userName}! 
+              <Button color="inherit" onClick={() => context.signout()}>Sign out</Button>
+            </p>
+          ) : (
+            <p>
+              You are not logged in{" "}
+              <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
+            </p>
+          )}
+          {isMobile ? (
               <>
                 <IconButton
                   aria-label="menu"

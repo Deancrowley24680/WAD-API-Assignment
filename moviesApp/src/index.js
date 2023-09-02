@@ -18,6 +18,8 @@ import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import TVDetailsPage from "./pages/tvDetailsPage";
 import AuthContextProvider from "./contexts/authContext";
+import PrivateRoute from "./privateRoute";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,15 +41,15 @@ const App = () => {
             <Routes>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
-              <Route path="/tv/:id" element={<TVDetailsPage />} />
-              <Route path="/tv/popular" element={<PopularTVPage />} />
-              <Route path="/person/popular-actors" element={<PopularActorsPage />} />
-              <Route path="/movies/popular" element={<PopularMoviesPage />} />
-              <Route path="/reviews/form" element={<AddMovieReviewPage/>} />
-              <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-              <Route path="/reviews/:id" element={<MovieReviewPage />} />
-              <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
-              <Route path="/movies/:id" element={<MoviePage />} />
+              <Route path="/tv/:id" element={<PrivateRoute><TVDetailsPage /></PrivateRoute>} />
+              <Route path="/tv/popular" element={<PrivateRoute><PopularTVPage /></PrivateRoute>} />
+              <Route path="/person/popular-actors" element={<PrivateRoute><PopularActorsPage /></PrivateRoute>} />
+              <Route path="/movies/popular" element={<PrivateRoute><PopularMoviesPage /></PrivateRoute>} />
+              <Route path="/reviews/form" element={<PrivateRoute><AddMovieReviewPage/></PrivateRoute>} />
+              <Route path="/movies/upcoming" element={<PrivateRoute><UpcomingMoviesPage /></PrivateRoute>} />
+              <Route path="/reviews/:id" element={<PrivateRoute><MovieReviewPage /></PrivateRoute>} />
+              <Route path="/movies/favourites" element={<PrivateRoute><FavouriteMoviesPage /></PrivateRoute>} />
+              <Route path="/movies/:id" element={<PrivateRoute><MoviePage /></PrivateRoute>} />
               <Route path="/" element={<HomePage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
