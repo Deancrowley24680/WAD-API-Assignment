@@ -71,10 +71,32 @@ router.post('/:userName/favourites', asyncHandler(async (req, res) => {
     res.status(201).json(user); 
   }));
 
+
+  router.post('/:userName/watchlist', asyncHandler(async (req, res) => {
+    const newWatchlist = req.body.id;
+    const userName = req.params.userName;
+    const movie = await movieModel.findByMovieDBId(newWatchlist);
+    const user = await User.findByUserName(userName);
+
+    if (user.watchlist.includes(movie._id)) {
+        res.status(400).json({ code: 400, msg: 'The movie is already in your watchlist!'});
+        }
+
+    await user.watchlist.push(movie._id);
+    await user.save(); 
+    res.status(201).json(user); 
+  }));
+
   router.get('/:userName/favourites', asyncHandler( async (req, res) => {
     const userName = req.params.userName;
     const user = await User.findByUserName(userName).populate('favourites');
     res.status(200).json(user.favourites);
+  }));
+
+  router.get('/:userName/watchlist', asyncHandler( async (req, res) => {
+    const userName = req.params.userName;
+    const user = await User.findByUserName(userName).populate('watchlist');
+    res.status(200).json(user.watchlist);
   }));
 
 export default router;
