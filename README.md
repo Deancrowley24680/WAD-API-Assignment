@@ -1,31 +1,30 @@
 # Assignment 2 - Web API.
 
-Name: Your Name
+Name: Dean Crowley (20089889)
 
 ## Features.
 
 ...... A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** ......,
  
- + Feature 1 - .... a statement of its purpose/objective ..... 
- + Feature 2 - .......
- + Feature 3 = ......
- + etc
- + etc
+ + Feature 1 - API Routes for TV Series 
+ + Feature 2 - Integration with React App from Assignment 1
+ + Feature 3 - Login & Signup Pages Introduced to React App
+ + Feature 4 - User Authentication Introduced to React App
+
 
 ## Installation Requirements
 
-Describe what needs to be on the machine to run the API (Node v?, NPM, MongoDB instance, any other 3rd party software not in the package.json). 
-
-Describe getting/installing the software, perhaps:
-
 ```bat
-git clone http:\myrepo.git
+git clone https://github.com/Deancrowley24680/WAD-API-Assignment.git
 ```
 
-followed by installation
+Installation in both the 'movies-api' & 'moviesApp' directories:
 
 ```bat
-git install
+npm install
+```
+```bat
+npm run
 ```
 
 ## API Configuration
@@ -35,10 +34,11 @@ REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON G
 ```bat
 NODE_ENV=development
 PORT=8080
-HOST=
-mongoDB=YourMongoURL
-seedDb=true
-secret=YourJWTSecret
+HOST=localhost
+MONGO_DB=mongodb://localhost:27017/movies_db
+SEED_DB=True
+SECRET='YOURSECRET'
+TMDB_KEY='YOURKEY'
 ```
 
 
@@ -50,36 +50,59 @@ Give an overview of your web API design, perhaps similar to the following:
 | /api/movies |Gets a list of movies | N/A | N/A |
 | /api/movies/{movieid} | Get a Movie | N/A | N/A | N/A
 | /api/movies/{movieid}/reviews | Get all reviews for movie | Create a new review for Movie | N/A | N/A  
+| /api/movies/tmdb/upcoming | Get all upcoming movies | N/A | N/A | N/A 
+| /api/movies/tmdb/trending | Get all trending movies | N/A | N/A | N/A
+| /api/users | Get all list of all users | Register OR authenticate a user | N/A | N/A
+| /api/users/:id | N/A | N/A | Update any user | N/A
+| /api/users/:userName/favourites | Get a list of that user's favourites | Add a favourite | N/A | N/A
+| /api/users/:userName/watchlist | Get a list of that user's watchlist | Add a movie to the watchlist | N/A | N/A
+| /api/genres | Get all genres | N/A | N/A | N/A
+| /api/tv |Gets a list of TV Series | N/A | N/A |
+| /api/tv/{tvid} | Get a TV Series | N/A | N/A | N/A
+| /api/tv/{tvid}/reviews | Get all reviews for a TV Series | Create a new review for a TV Series | N/A | N/A  
+| /api/tv/tmdb/upcoming | Get all upcoming TV Series | N/A | N/A | N/A 
+| /api/tv/tmdb/trending | Get all trending TV Series | N/A | N/A | N/A
 | ... | ... | ... | ... | ...
 
-If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
 
 
 ## Security and Authentication
-Give details of authentication/ security implemented on the API(e.g. passport/sessions). Indicate which routes are protected.
+This app uses JWT Tokens for authenticating logins. On the React app, each page bar the Home page requires authentication to access.
 
 ## Integrating with React App
 
 Describe how you integrated your React app with the API. Perhaps link to the React App repo and give an example of an API call from React App. For example: 
 
 ~~~Javascript
-export const getMovies = () => {
-  return fetch(
-     '/api/movies',{headers: {
-       'Authorization': window.localStorage.getItem('token')
-    }
-  }
-  )
-    .then(res => res.json())
-    .then(json => {return json.results;});
+export const login = (username, password) => {
+    return fetch('/api/users', {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify({ username: username, password: password })
+    }).then(res => res.json())
 };
+
+export const signup = (username, password) => {
+    return fetch('/api/users?action=register', {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify({ username: username, password: password })
+    }).then(res => res.json())
+};
+
+export const getMovies = () => {
+    return fetch(
+       '/api/movies',{headers: {
+         'Authorization': window.localStorage.getItem('token')
+      }
+    }
+    ).then(res => res.json());
+  };
 
 ~~~
 
-## Extra features
-
-. . Briefly explain any non-standard features, functional or non-functional, developed for the app.  
-
-## Independent learning
-
-. . State the non-standard aspects of React/Express/Node (or other related technologies) that you researched and applied in this assignment . .  
+ 
