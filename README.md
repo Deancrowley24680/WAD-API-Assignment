@@ -3,8 +3,6 @@
 Name: Dean Crowley (20089889)
 
 ## Features.
-
-...... A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** ......,
  
  + Feature 1 - API Routes for TV Series 
  + Feature 2 - Integration with React App from Assignment 1
@@ -28,8 +26,6 @@ npm run
 ```
 
 ## API Configuration
-Describe any configuration that needs to take place before running the API. For example, creating an ``.env`` and what variables to put in it. Give an example of how this might be structured/done.
-REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
 
 ```bat
 NODE_ENV=development
@@ -69,9 +65,7 @@ Give an overview of your web API design, perhaps similar to the following:
 ## Security and Authentication
 This app uses JWT Tokens for authenticating logins. On the React app, each page bar the Home page requires authentication to access.
 
-## Integrating with React App
-
-Describe how you integrated your React app with the API. Perhaps link to the React App repo and give an example of an API call from React App. For example: 
+## Integrating with React App 
 
 ~~~Javascript
 export const login = (username, password) => {
