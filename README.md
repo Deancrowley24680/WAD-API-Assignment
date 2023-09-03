@@ -21,6 +21,8 @@ Installation in both the 'movies-api' & 'moviesApp' directories:
 ```bat
 npm install
 ```
+&
+
 ```bat
 npm run
 ```
@@ -39,7 +41,6 @@ TMDB_KEY='YOURKEY'
 
 
 ## API Design
-Give an overview of your web API design, perhaps similar to the following: 
 
 |  |  GET | POST | PUT | DELETE
 | -- | -- | -- | -- | -- 
@@ -58,7 +59,6 @@ Give an overview of your web API design, perhaps similar to the following:
 | /api/tv/{tvid}/reviews | Get all reviews for a TV Series | Create a new review for a TV Series | N/A | N/A  
 | /api/tv/tmdb/upcoming | Get all upcoming TV Series | N/A | N/A | N/A 
 | /api/tv/tmdb/trending | Get all trending TV Series | N/A | N/A | N/A
-| ... | ... | ... | ... | ...
 
 
 
